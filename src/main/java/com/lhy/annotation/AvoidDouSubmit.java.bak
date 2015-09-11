@@ -24,7 +24,7 @@ public @interface AvoidDouSubmit {
 
 
 
-/**nihaoa**/
+
 
 
     boolean needSaveToken() default false;
