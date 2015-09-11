@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/lhy/entity/RedisEntity.java=UTF-8
+encoding//src/main/java/com/lhy/entity/Role.java=UTF-8
+encoding//src/main/java/com/lhy/entity/User.java=UTF-8
+encoding//src/main/java/com/lhy/utils/QueryResult.java=UTF-8
+encoding//src/main/resources/application.properties=UTF-8
+encoding//src/main/resources/systemConfig.properties=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/after/left.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/after/websocket.jsp=UTF-8
+encoding//src/main/webapp/easyui=UTF-8
+encoding/<project>=UTF-8

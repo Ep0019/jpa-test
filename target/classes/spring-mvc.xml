@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-4.1.xsd 
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-4.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd 
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+	http://www.springframework.org/schema/cache
+	http://www.springframework.org/schema/cache/spring-cache-3.2.xsd"  
+	
+	default-lazy-init="true">
+	<aop:aspectj-autoproxy />
+	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd-->
+	<mvc:resources mapping="/common/**" location="/common/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/javascript/**" location="/javascript/" />
+	<mvc:resources mapping="/jquery-easyui-1.3.6/**" location="/jquery-easyui-1.3.6/" />
+	<mvc:resources mapping="/easyui/**" location="/easyui/" />
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.lhy.controller" />
+	<mvc:annotation-driven/>
+	
+	
+	<!-- 自定义拦截器 -->
+	 <mvc:interceptors>
+		<!-- 防爆拦截器 4、 在控制器 相关方法中加入注解 @AvoidDuplicateSubmission(needRemoveToken 
+			= true) 5、 在页面的表单提交中加入token的隐藏域 <input type="hidden" name="token" value="${token}"> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/upload/**" />
+			<mvc:exclude-mapping path="/common/**" />
+			<mvc:exclude-mapping path="/javascript/**" />
+			<mvc:exclude-mapping path="/jquery-easyui-1.3.6/**" />
+			<mvc:exclude-mapping path="/easyui/**" />
+			<bean
+				class="com.lhy.interceptor.AvoidDuplicateSubmissionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> 
+	
+	
+    <!-- 避免IE执行AJAX时,返回JSON出现下载文件   
+    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+               <value>application/json</value>  
+            </list>  
+        </property>  
+    </bean>
+	-->
+
+	<!-- 文件上传的配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="UTF-8" p:maxUploadSize="52428800" p:uploadTempDir="upload/temp"></bean>
+
+	<!-- 视图解释类 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" /><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<!-- 定义模板顺序 -->
+		<property name="order" value="1"></property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+</beans>
