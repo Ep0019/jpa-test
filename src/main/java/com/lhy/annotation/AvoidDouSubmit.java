@@ -15,6 +15,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AvoidDouSubmit {
+
+
+
+
+
+
+
+
+
+
+
+
     boolean needSaveToken() default false;
     boolean needRemoveToken() default false;
 

@@ -16,6 +16,11 @@ import com.lhy.entity.User;
  */
 public class GetJsonData{
 
+
+
+
+
+
 	public static String getBuilderJson(User user) {
 		String json = "";
 		try {
